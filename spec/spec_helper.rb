@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + '/../lib/variance'
+require File.dirname(__FILE__) + '/../lib/calc'

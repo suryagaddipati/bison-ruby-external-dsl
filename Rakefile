@@ -1,7 +1,7 @@
-require 'spec'
-require 'spec/rake/spectask'
+require 'rspec'
+require 'rspec/rake/spectask'
 
-task :default => :spec
+task :default => :rspec
 
 desc "Running specs."
 Spec::Rake::SpecTask.new(:spec) do |t|

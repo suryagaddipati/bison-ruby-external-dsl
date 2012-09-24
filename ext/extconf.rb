@@ -1,6 +1,6 @@
 # Loads mkmf which is used to make makefiles for Ruby extensions
 require 'mkmf'
-extension_name = 'variance_ext'
+extension_name = 'calc'
 
 # The destination
 dir_config(extension_name)
