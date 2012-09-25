@@ -1,1 +1,1 @@
-require File.dirname(__FILE__) + '/../ext/variance_ext'
+require File.dirname(__FILE__) + '/../ext/calc'
