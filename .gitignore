@@ -1,3 +1,3 @@
 ext/*.so
 ext/*.o
-ext/Makefile
+ext/*.bundle

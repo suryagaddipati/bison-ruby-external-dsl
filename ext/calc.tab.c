@@ -84,6 +84,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "ruby.h"
 
 
 /* Enabling traces.  */
@@ -117,7 +118,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 121 "calc.tab.c"
+#line 122 "calc.tab.c"
 
 #ifdef short
 # undef short
@@ -399,7 +400,7 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    12,    12
+       0,    13,    13
 };
 #endif
 
@@ -1296,13 +1297,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 12 "calc.y"
+#line 13 "calc.y"
     { printf("result: %d", (yyvsp[(1) - (4)]) + (yyvsp[(3) - (4)]));;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1306 "calc.tab.c"
+#line 1307 "calc.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1516,18 +1517,23 @@ yyreturn:
 }
 
 
-#line 14 "calc.y"
+#line 15 "calc.y"
 
 
-main(int argc, char **argv)
-{
-  char tstr[] = " 5 + 2 \n\0";
-  yy_scan_buffer(tstr, sizeof(tstr));
-  yyparse();
-}
 
 yyerror(char *s)
 {
 fprintf(stderr, "error: %s\n", s);
+}
+
+static VALUE t_calculate(VALUE self, VALUE anObject){
+  char tstr[] = " 5 + 2 \n\0";
+  yy_scan_buffer(tstr, sizeof(tstr));
+  yyparse();
+  return rb_str_new2("result");
+}
+void Init_calc(){
+ VALUE  cCalc = rb_define_class("Calculator", rb_cObject);
+  rb_define_method(cCalc , "calculate", t_calculate, 1);
 }
 
