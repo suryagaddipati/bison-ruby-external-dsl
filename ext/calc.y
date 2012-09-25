@@ -10,7 +10,7 @@
 
 %%
 
-calc: NUMBER PLUS NUMBER EOL { printf("result: %d", $1 + $3);}
+calc: NUMBER PLUS NUMBER EOL {  $$ =  $1 + $3;}
 ;
 %%
 
@@ -23,7 +23,8 @@ fprintf(stderr, "error: %s\n", s);
 static VALUE t_calculate(VALUE self, VALUE anObject){
   char tstr[] = " 5 + 2 \n\0";
   yy_scan_buffer(tstr, sizeof(tstr));
-  yyparse();
+   int result = yyparse();
+   printf("result : ---- %d" , result);
   return rb_str_new2("result");
 }
 void Init_calc(){

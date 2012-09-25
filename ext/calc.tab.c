@@ -1298,7 +1298,7 @@ yyreduce:
     {
         case 2:
 #line 13 "calc.y"
-    { printf("result: %d", (yyvsp[(1) - (4)]) + (yyvsp[(3) - (4)]));;}
+    {  (yyval) =  (yyvsp[(1) - (4)]) + (yyvsp[(3) - (4)]);;}
     break;
 
 
@@ -1529,7 +1529,8 @@ fprintf(stderr, "error: %s\n", s);
 static VALUE t_calculate(VALUE self, VALUE anObject){
   char tstr[] = " 5 + 2 \n\0";
   yy_scan_buffer(tstr, sizeof(tstr));
-  yyparse();
+   int result = yyparse();
+   printf("result : ---- %d" , result);
   return rb_str_new2("result");
 }
 void Init_calc(){
