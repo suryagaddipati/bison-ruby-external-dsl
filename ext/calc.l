@@ -8,5 +8,5 @@
 [0-9]+ {  yylval = atoi(yytext); return NUMBER; }
 [ \t] ; 
 \n {  return EOL; }
-. {printf("couldn't match %s", yytext);}
+. {}
 %%

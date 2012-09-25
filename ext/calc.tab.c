@@ -85,6 +85,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ruby.h"
+int ret_value ;
 
 
 /* Enabling traces.  */
@@ -118,7 +119,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 122 "calc.tab.c"
+#line 123 "calc.tab.c"
 
 #ifdef short
 # undef short
@@ -333,7 +334,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   4
+#define YYLAST   3
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  6
@@ -342,7 +343,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  2
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  7
+#define YYNSTATES  6
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
@@ -394,13 +395,13 @@ static const yytype_uint8 yyprhs[] =
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-       7,     0,    -1,     3,     4,     3,     5,    -1
+       7,     0,    -1,     3,     4,     3,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    13,    13
+       0,    14,    14
 };
 #endif
 
@@ -432,7 +433,7 @@ static const yytype_uint8 yyr1[] =
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     4
+       0,     2,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -440,7 +441,7 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     2
+       0,     0,     0,     0,     1,     2
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -454,7 +455,7 @@ static const yytype_int8 yydefgoto[] =
 #define YYPACT_NINF -4
 static const yytype_int8 yypact[] =
 {
-      -3,    -2,     1,     0,    -4,    -1,    -4
+      -3,    -2,     1,     0,    -4,    -4
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -470,19 +471,19 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       1,     4,     3,     5,     6
+       1,     4,     3,     5
 };
 
 static const yytype_uint8 yycheck[] =
 {
-       3,     0,     4,     3,     5
+       3,     0,     4,     3
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     7,     4,     0,     3,     5
+       0,     3,     7,     4,     0,     3
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1297,13 +1298,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 13 "calc.y"
-    {  (yyval) =  (yyvsp[(1) - (4)]) + (yyvsp[(3) - (4)]);;}
+#line 14 "calc.y"
+    {  ret_value =  (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]);;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1307 "calc.tab.c"
+#line 1308 "calc.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1517,7 +1518,7 @@ yyreturn:
 }
 
 
-#line 15 "calc.y"
+#line 16 "calc.y"
 
 
 
@@ -1526,12 +1527,11 @@ yyerror(char *s)
 fprintf(stderr, "error: %s\n", s);
 }
 
-static VALUE t_calculate(VALUE self, VALUE anObject){
-  char tstr[] = " 5 + 2 \n\0";
+static VALUE t_calculate(VALUE self, VALUE rstr){
+  char* tstr=  RSTRING_PTR(rstr); 
   yy_scan_buffer(tstr, sizeof(tstr));
-   int result = yyparse();
-   printf("result : ---- %d" , result);
-  return rb_str_new2("result");
+   yyparse();
+  return  INT2NUM(ret_value);
 }
 void Init_calc(){
  VALUE  cCalc = rb_define_class("Calculator", rb_cObject);

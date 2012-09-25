@@ -743,7 +743,7 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 11 "calc.l"
-{printf("couldn't match %s", yytext);}
+{}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
